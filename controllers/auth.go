@@ -1,19 +1,9 @@
 package controllers
 
 import (
-	"crypto/md5"
-	"crypto/sha1"
-	"encoding/json"
-	"fmt"
 	"net/http"
-	"strings"
-	"time"
 
-	"github.com/prest/prest/v2/config"
 	"github.com/prest/prest/v2/controllers/auth"
-
-	jose "gopkg.in/square/go-jose.v2"
-	"gopkg.in/square/go-jose.v2/jwt"
 )
 
 // Response representation
@@ -40,110 +30,39 @@ type Login struct {
 
 // Token for user
 func Token(u auth.User) (t string, err error) {
+	_ = "STUB: not implemented"
 	// add start time (NotBefore)
-	getToken := time.Now()
-	// add expiry time in configuration (in minute format, so we support the maximum need)
-	expireToken := time.Now().Add(time.Hour * 6)
-
-	// TODO: JWT any Algorithm support
-	sig, err := jose.NewSigner(
-		jose.SigningKey{
-			Algorithm: jose.HS256,
-			Key:       []byte(config.PrestConf.JWTKey)},
-		(&jose.SignerOptions{}).WithType("JWT"))
-	if err != nil {
-		return
-	}
-
-	cl := auth.Claims{
-		UserInfo:  u,
-		NotBefore: jwt.NewNumericDate(getToken),
-		Expiry:    jwt.NewNumericDate(expireToken),
-	}
-	return jwt.Signed(sig).Claims(cl).CompactSerialize()
+	return "", nil
 }
+
+// add expiry time in configuration (in minute format, so we support the maximum need)
+
+// TODO: JWT any Algorithm support
 
 // Auth controller
-func Auth(w http.ResponseWriter, r *http.Request) {
-	login := Login{}
-	switch config.PrestConf.AuthType {
-	// TODO: form support
-	case "body":
-		// to use body field authentication
-		dec := json.NewDecoder(r.Body)
-		dec.DisallowUnknownFields()
-		//nolint
-		dec.Decode(&login)
-	case "basic":
-		// to use http basic authentication
-		var ok bool
-		login.Username, login.Password, ok = r.BasicAuth()
-		if !ok {
-			jsonError(w, unf, http.StatusBadRequest)
-			return
-		}
-	}
+func Auth(w http.ResponseWriter, r *http.Request) { _ = "STUB: not implemented"; return }
 
-	loggedUser, err := basicPasswordCheck(strings.ToLower(login.Username), login.Password)
-	if err != nil {
-		jsonError(w, err.Error(), http.StatusUnauthorized)
-		return
-	}
-	token, err := Token(loggedUser)
-	if err != nil {
-		jsonError(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	resp := Response{
-		LoggedUser: loggedUser,
-		Token:      token,
-	}
-	err = json.NewEncoder(w).Encode(resp)
-	if err != nil {
-		jsonError(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-}
+// TODO: form support
+
+// to use body field authentication
+
+//nolint
+
+// to use http basic authentication
 
 // basicPasswordCheck
 func basicPasswordCheck(user, password string) (obj auth.User, err error) {
+	_ = "STUB: not implemented"
 	/**
 	table name, fields (user and password) and encryption must be defined in
 	the configuration file (toml)
 	by default this endpoint will not be available, it is necessary to activate
 	in the configuration file
-	*/
-	sc := config.PrestConf.Adapter.Query(getSelectQuery(), user, encrypt(password))
-	if sc.Err() != nil {
-		err = sc.Err()
-		return
-	}
-	n, err := sc.Scan(&obj)
-	if err != nil {
-		return
-	}
-	if n != 1 {
-		err = ErrUserNotFound
-	}
-
-	return
+	*/return *new(auth.User), nil
 }
 
 // getSelectQuery create the query to authenticate the user
-func getSelectQuery() (query string) {
-	return fmt.Sprintf(
-		`SELECT * FROM %s.%s WHERE %s=$1 AND %s=$2 LIMIT 1`,
-		config.PrestConf.AuthSchema, config.PrestConf.AuthTable,
-		config.PrestConf.AuthUsername, config.PrestConf.AuthPassword)
-}
+func getSelectQuery() (query string) { _ = "STUB: not implemented"; return "" }
 
 // encrypt will apply the encryption algorithm to the password
-func encrypt(password string) (encrypted string) {
-	switch config.PrestConf.AuthEncrypt {
-	case "MD5":
-		return fmt.Sprintf("%x", md5.Sum([]byte(password)))
-	case "SHA1":
-		return fmt.Sprintf("%x", sha1.Sum([]byte(password)))
-	}
-	return
-}
+func encrypt(password string) (encrypted string) { _ = "STUB: not implemented"; return "" }

@@ -16,23 +16,7 @@ type Endpoint struct {
 	Time     int    `mapstructure:"time"`
 }
 
-func (c *Config) ClearEndpoints() {
-	c.Endpoints = []Endpoint{}
-}
+func (c *Config) ClearEndpoints() { _ = "STUB: not implemented"; return }
 
 // EndpointRules checks if there is a custom caching rule for the endpoint
-func (c Config) EndpointRules(uri string) (bool, int) {
-	enabled := false
-	time := c.Time
-
-	if c.Enabled && len(c.Endpoints) == 0 {
-		enabled = true
-	}
-	for _, endpoint := range c.Endpoints {
-		if endpoint.Endpoint == uri {
-			enabled = true
-			return enabled, endpoint.Time
-		}
-	}
-	return enabled, time
-}
+func (c Config) EndpointRules(uri string) (bool, int) { _ = "STUB: not implemented"; return false, 0 }

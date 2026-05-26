@@ -7,37 +7,28 @@ import (
 )
 
 // GetURI postgres connection URI
-func GetURI(DBName string) string {
-	return connection.GetURI(DBName)
-}
+func GetURI(DBName string) string { _ = "STUB: not implemented"; return "" }
 
 // Get get postgres connection
 func Get() (*sqlx.DB, error) {
-	return connection.Get()
+	_ = "STUB: not implemented"
+	return nil,
+
+		// GetPool of connection
+		nil
 }
 
-// GetPool of connection
-func GetPool() *connection.Pool {
-	return connection.GetPool()
-}
+func GetPool() *connection.Pool { _ = "STUB: not implemented"; return nil }
 
 // AddDatabaseToPool add connection to pool
-func AddDatabaseToPool(name string) (*sqlx.DB, error) {
-	return connection.AddDatabaseToPool(name)
-}
+func AddDatabaseToPool(name string) (*sqlx.DB, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // MustGet get postgres connection
-func MustGet() *sqlx.DB {
-	return connection.MustGet()
-}
+func MustGet() *sqlx.DB { _ = "STUB: not implemented"; return nil }
 
 // SetDatabase set current database in use
 // todo: remove when ctx is fully implemented
-func SetDatabase(name string) {
-	connection.SetDatabase(name)
-}
+func SetDatabase(name string) { _ = "STUB: not implemented"; return }
 
 // GetDatabase get current database in use
-func GetDatabase() string {
-	return connection.GetDatabase()
-}
+func GetDatabase() string { _ = "STUB: not implemented"; return "" }

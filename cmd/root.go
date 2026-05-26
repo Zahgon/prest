@@ -1,13 +1,8 @@
 package cmd
 
 import (
-	"net/http"
-	"os"
-	"strconv"
-
 	"github.com/prest/prest/v2/adapters/postgres"
 	"github.com/prest/prest/v2/config"
-	"github.com/prest/prest/v2/router"
 
 	"log/slog"
 
@@ -30,58 +25,15 @@ var RootCmd = &cobra.Command{
 
 // Execute adds all child commands to the root command sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
-	upCmd.AddCommand(authUpCmd)
-	downCmd.AddCommand(authDownCmd)
-	migrateCmd.AddCommand(downCmd)
-	migrateCmd.AddCommand(mversionCmd)
-	migrateCmd.AddCommand(nextCmd)
-	migrateCmd.AddCommand(redoCmd)
-	migrateCmd.AddCommand(upCmd)
-	migrateCmd.AddCommand(resetCmd)
-	RootCmd.AddCommand(versionCmd)
-	RootCmd.AddCommand(migrateCmd)
-	migrateCmd.PersistentFlags().StringVar(&urlConn, "url", driverURL(), "Database driver url")
-	migrateCmd.PersistentFlags().StringVar(&path, "path", config.PrestConf.MigrationsPath, "Migrations directory")
-
-	if err := RootCmd.Execute(); err != nil {
-		slog.Error("executing root command", "err", err)
-		os.Exit(1)
-	}
-}
+func Execute() { _ = "STUB: not implemented"; return }
 
 // startServer starts the server
 func startServer() {
+	_ = "STUB: not implemented"
 	// Fail fast when JWT enforcement is enabled but no verification material
 	// was provided — otherwise the middleware would validate bearer tokens
 	// against an empty HMAC key. Subcommands like `migrate` don't reach here,
 	// so they keep working without JWT material configured.
 	// See GHSA-fj7v-859r-2fm4.
-	if err := config.ValidateJWTConfig(config.PrestConf); err != nil {
-		slog.Error("invalid JWT configuration", "err", err)
-		os.Exit(1)
-	}
-
-	http.Handle(config.PrestConf.ContextPath, router.Routes())
-
-	if !config.PrestConf.AccessConf.Restrict {
-		slog.Warn("You are running prestd in public mode.")
-	}
-
-	if config.PrestConf.Debug {
-		slog.Warn("You are running prestd in debug mode.")
-	}
-	address := config.PrestConf.HTTPHost + ":" + strconv.Itoa(config.PrestConf.HTTPPort)
-	slog.Info("listening and serving", slog.String("addr", address), slog.String("context", config.PrestConf.ContextPath))
-
-	if config.PrestConf.HTTPSMode {
-		if err := http.ListenAndServeTLS(address, config.PrestConf.HTTPSCert, config.PrestConf.HTTPSKey, nil); err != nil {
-			slog.Error("HTTPS server failed", "err", err)
-			os.Exit(1)
-		}
-	}
-	if err := http.ListenAndServe(address, nil); err != nil {
-		slog.Error("HTTP server failed", "err", err)
-		os.Exit(1)
-	}
+	return
 }

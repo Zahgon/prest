@@ -3,11 +3,6 @@
 // each plugin is isolated at compile time
 package main
 
-import (
-	"encoding/json"
-	"net/http"
-)
-
 var (
 	// HTTPVars route variables for the current request
 	HTTPVars map[string]string
@@ -29,31 +24,6 @@ type Response struct {
 //
 // BUILD:
 // go build -o lib/hello.so -buildmode=plugin lib/src/hello.go
-func GETHelloHandler() (ret string) {
-	resp := Response{
-		HTTPVars: HTTPVars,
-		URLQuery: URLQuery,
-		MSG:      "Hello plugin caller!",
-	}
-	respJSON, err := json.Marshal(resp)
-	if err != nil {
-		return
-	}
-	ret = string(respJSON)
-	return
-}
+func GETHelloHandler() (ret string) { _ = "STUB: not implemented"; return "" }
 
-func GETHelloWithStatusHandler() (ret string, code int) {
-	resp := Response{
-		HTTPVars: HTTPVars,
-		URLQuery: URLQuery,
-		MSG:      "Hello plugin caller!",
-	}
-	respJSON, err := json.Marshal(resp)
-	if err != nil {
-		return
-	}
-	ret = string(respJSON)
-	code = http.StatusAccepted
-	return
-}
+func GETHelloWithStatusHandler() (ret string, code int) { _ = "STUB: not implemented"; return "", 0 }

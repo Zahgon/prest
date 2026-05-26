@@ -5,8 +5,6 @@
 package mockgen
 
 import (
-	reflect "reflect"
-
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -22,56 +20,32 @@ type MockScannerMockRecorder struct {
 }
 
 // NewMockScanner creates a new mock instance.
-func NewMockScanner(ctrl *gomock.Controller) *MockScanner {
-	mock := &MockScanner{ctrl: ctrl}
-	mock.recorder = &MockScannerMockRecorder{mock}
-	return mock
-}
+func NewMockScanner(ctrl *gomock.Controller) *MockScanner { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockScanner) EXPECT() *MockScannerMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Bytes mocks base method.
+	return nil
 }
 
-// Bytes mocks base method.
-func (m *MockScanner) Bytes() []byte {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Bytes")
-	ret0, _ := ret[0].([]byte)
-	return ret0
-}
+func (m *MockScanner) Bytes() []byte { _ = "STUB: not implemented"; return nil }
 
 // Bytes indicates an expected call of Bytes.
-func (mr *MockScannerMockRecorder) Bytes() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Bytes", reflect.TypeOf((*MockScanner)(nil).Bytes))
-}
+func (mr *MockScannerMockRecorder) Bytes() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Err mocks base method.
-func (m *MockScanner) Err() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Err")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockScanner) Err() error { _ = "STUB: not implemented"; return nil }
 
 // Err indicates an expected call of Err.
-func (mr *MockScannerMockRecorder) Err() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Err", reflect.TypeOf((*MockScanner)(nil).Err))
-}
+func (mr *MockScannerMockRecorder) Err() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Scan mocks base method.
-func (m *MockScanner) Scan(arg0 interface{}) (int, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Scan", arg0)
-	ret0, _ := ret[0].(int)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
+func (m *MockScanner) Scan(arg0 interface{}) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // Scan indicates an expected call of Scan.
 func (mr *MockScannerMockRecorder) Scan(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Scan", reflect.TypeOf((*MockScanner)(nil).Scan), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -8,6 +8,4 @@ var (
 )
 
 // PrestReleaseVersion is same as pREST Version.
-func PrestReleaseVersion() string {
-	return PrestVersionNumber
-}
+func PrestReleaseVersion() string { _ = "STUB: not implemented"; return "" }

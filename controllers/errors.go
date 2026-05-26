@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 )
 
@@ -16,5 +15,6 @@ const (
 )
 
 func jsonError(writer http.ResponseWriter, message string, status int) {
-	http.Error(writer, fmt.Sprintf(jsonErrorMsg, message), status)
+	_ = "STUB: not implemented"
+	return
 }

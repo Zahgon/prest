@@ -2,11 +2,6 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
-
-	"github.com/prest/prest/v2/adapters/postgres"
-	"github.com/prest/prest/v2/config"
 
 	"github.com/spf13/cobra"
 	// pq driver
@@ -30,57 +25,6 @@ var migrateCmd = &cobra.Command{
 	Long:  `Execute migration operations`,
 }
 
-func checkTable(cmd *cobra.Command, args []string) error {
-	if path == "" {
-		return ErrPathNotSet
-	}
-	if urlConn == "" {
-		return ErrURLNotSet
-	}
-	cmd.SilenceUsage = true
-	if config.PrestConf.Adapter == nil {
-		postgres.Load()
-	}
-	sc := config.PrestConf.Adapter.ShowTable("public", "schema_migrations")
-	if err := sc.Err(); err != nil {
-		return err
-	}
-	ts := []struct {
-		ColName string `json:"column_name,omitempty"`
-	}{}
-	_, err := sc.Scan(&ts)
-	if err != nil {
-		return err
-	}
-	var index *int
-	for i := range ts {
-		if ts[i].ColName == "dirty" {
-			index = &i
-			break
-		}
-	}
-	if index != nil {
-		db, err := postgres.Get()
-		if err != nil {
-			return err
-		}
-		_, err = db.Exec("ALTER TABLE public.schema_migrations DROP COLUMN dirty")
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
+func checkTable(cmd *cobra.Command, args []string) error { _ = "STUB: not implemented"; return nil }
 
-func driverURL() string {
-	return fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s&sslcert=%s&sslkey=%s&sslrootcert=%s",
-		url.PathEscape(config.PrestConf.PGUser),
-		url.PathEscape(config.PrestConf.PGPass),
-		url.PathEscape(config.PrestConf.PGHost),
-		config.PrestConf.PGPort,
-		url.PathEscape(config.PrestConf.PGDatabase),
-		url.QueryEscape(config.PrestConf.PGSSLMode),
-		url.QueryEscape(config.PrestConf.PGSSLCert),
-		url.QueryEscape(config.PrestConf.PGSSLKey),
-		url.QueryEscape(config.PrestConf.PGSSLRootCert))
-}
+func driverURL() string { _ = "STUB: not implemented"; return "" }
